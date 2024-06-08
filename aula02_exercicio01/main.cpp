@@ -4,35 +4,43 @@
 int id;
 
 void display(void) {
-    // Limpa a janela de visualização com a cor branca
     glClearColor(0,1,0,0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     //Desenhando o Losango Azul
     glColor3f(0, 0, 1);
-    glPointSize(6);
-    glBegin(GL_POINTS);
-        glVertex3f(0, 0.75, 0); //Cima
-        glVertex3f(-0.25, 0.5, 0); //Esquerdo
-        glVertex3f(0, 0.25, 0); //Baixo
-        glVertex3f(0.25, 0.5, 0); //Direito
+    glBegin(GL_POLYGON);
+        glVertex3f(0, 0.25, 0);
+        glVertex3f(0.25, 0.5, 0);
+        glVertex3f(0, 0.75, 0);
+        glVertex3f(-0.25, 0.5, 0);
     glEnd();
 
     //Desenhando o Losango Preto
     glColor3f(0, 0, 0);
-    glPointSize(6);
-    glBegin(GL_POINTS);
-        glVertex3f(0, -0.25, 0); //Cima
-        glVertex3f(-0.25, -0.5, 0); //Esquerdo
-        glVertex3f(0, -0.75, 0); //Baixo
-        glVertex3f(0.25, -0.5, 0); //Direito
+    glBegin(GL_POLYGON);
+        glVertex3f(0, -0.25, 0);
+        glVertex3f(0.25, -0.5, 0);
+        glVertex3f(0, -0.75, 0);
+        glVertex3f(-0.25, -0.5, 0);
     glEnd();
 
     //Desenhando o Losango Vermeho
     glColor3f(1, 0, 0);
-    glPointSize(6);
-    glBegin(GL_POINTS);
-        glVertex3f(0.5, 0.4, 0);
+    glBegin(GL_POLYGON);
+        glVertex3f(0.25, 0, 0);
+        glVertex3f(0.5, 0.25, 0);
+        glVertex3f(0.75, 0, 0);
+        glVertex3f(0.5, -0.25, 0);
+    glEnd();
+
+    //Desenhando o Losango Amarelo
+    glColor3f(1, 1, 0);
+    glBegin(GL_POLYGON);
+        glVertex3f(-0.25, 0, 0);
+        glVertex3f(-0.5, 0.25, 0);
+        glVertex3f(-0.75, 0, 0);
+        glVertex3f(-0.5, -0.25, 0);
     glEnd();
 
     glFlush();
