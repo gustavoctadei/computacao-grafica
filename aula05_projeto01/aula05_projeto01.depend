@@ -1,7 +1,50 @@
 # depslib dependency file v1.0
-1717882059 source:c:\users\gusta\projects\computacao-grafica\aula02_exercicio01\main.cpp
+1718243151 source:c:\users\gusta\projects\computacao-grafica\aula05_projeto01\main.c
 	<stdlib.h>
-	<GL/freeglut.h>
+	<GL/glut.h>
+
+1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\stdlib.h
+	<crtdefs.h>
+	<limits.h>
+	<sec_api/stdlib_s.h>
+	<malloc.h>
+
+1526093416 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\crtdefs.h
+	<_mingw.h>
+
+1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\_mingw.h
+	"_mingw_mac.h"
+	"_mingw_secapi.h"
+	"_cygwin.h"
+	<vadefs.h>
+	"sdks/_mingw_directx.h"
+	"sdks/_mingw_ddk.h"
+
+1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\_mingw_mac.h
+
+1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\_mingw_secapi.h
+
+1526093416 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\_cygwin.h
+	<stddef.h>
+
+1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\stddef.h
+	<crtdefs.h>
+
+1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\vadefs.h
+	<_mingw.h>
+
+1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\sdks\_mingw_directx.h
+
+1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\sdks\_mingw_ddk.h
+
+1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\limits.h
+	<crtdefs.h>
+
+1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\sec_api\stdlib_s.h
+	<stdlib.h>
+
+1526093416 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\malloc.h
+	<crtdefs.h>
 
 1426361640 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\glut.h
 	"freeglut_std.h"
@@ -56,34 +99,6 @@
 	<winsvc.h>
 	<mcx.h>
 	<imm.h>
-
-1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\_mingw.h
-	"_mingw_mac.h"
-	"_mingw_secapi.h"
-	"_cygwin.h"
-	<vadefs.h>
-	"sdks/_mingw_directx.h"
-	"sdks/_mingw_ddk.h"
-
-1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\_mingw_mac.h
-
-1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\_mingw_secapi.h
-
-1526093416 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\_cygwin.h
-	<stddef.h>
-
-1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\stddef.h
-	<crtdefs.h>
-
-1526093416 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\crtdefs.h
-	<_mingw.h>
-
-1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\vadefs.h
-	<_mingw.h>
-
-1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\sdks\_mingw_directx.h
-
-1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\sdks\_mingw_ddk.h
 
 1526093416 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\sdkddkver.h
 
@@ -201,21 +216,6 @@
 	<mm3dnow.h>
 
 1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\setjmp.h
-	<crtdefs.h>
-
-1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\stdlib.h
-	<crtdefs.h>
-	<limits.h>
-	<sec_api/stdlib_s.h>
-	<malloc.h>
-
-1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\limits.h
-	<crtdefs.h>
-
-1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\sec_api\stdlib_s.h
-	<stdlib.h>
-
-1526093416 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\malloc.h
 	<crtdefs.h>
 
 1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\errno.h
@@ -872,11 +872,4 @@
 
 1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\glu.h
 	<GL/gl.h>
-
-1426361640 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\freeglut.h
-	"freeglut_std.h"
-	"freeglut_ext.h"
-
-1426361640 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\freeglut_ext.h
-	<stdarg.h>
 

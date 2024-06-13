@@ -3,11 +3,13 @@
 
 GLfloat fAspect = 1;
 
-void Desenha(){
+void desenha() {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(100,fAspect,0.5,500);
+
   //glFrustum(0.4, 0.4, 0.4,0.4,0.3,0.8);
+
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
   gluLookAt(40,60,100, 0,0,0, 0,1,0);
@@ -23,9 +25,9 @@ void Desenha(){
   glFlush();
 }
 
-void Teclado (unsigned char key, int x, int y)
-{       if (key == 27)
-                exit(0);
+void teclado(unsigned char key, int x, int y) {
+    if (key == 27)
+        exit(0);
 }
 
 void init(void) {
@@ -45,7 +47,8 @@ int main(int argc, char** argv) {
     glutCreateWindow("Primeiro_Programa");
 
     init();
-    glutDisplayFunc(Desenha);
+    glutDisplayFunc(desenha);
+    glutKeyboardFunc(teclado);
     glutMainLoop();
 
     return 0;
