@@ -1,12 +1,13 @@
+//Atividade 3 - Prática 2 - Exercicio 2
+
 #include <stdlib.h>
 #include <GL/freeglut.h>
-
-int id;
 
 /* angulos de rotacao para os corpos celestes */
 float angleEarth = 0;
 float angleMoon = 0;
 float angleMars = 0;
+int id;
 
 /* para a camera, lembrem-se dos exercicios anteriores */
 #define y_min 60
@@ -15,101 +16,105 @@ float eyex = 0;
 float eyey = y_min;
 float eyez = ro_min;
 
+/* angulos de rotacao para os corpos celestes */
+
 void drawSun(){
-    glColor3f( 1, 1, 0 );
-    glutSolidSphere( 12, 16, 16 );
+
+glColor3f( 1, 1, 0 );
+glutSolidSphere( 12, 16, 16 );
+
 }
 
 void drawEarth(){
-    glColor3f( 0, 0, 1 );
-    glutSolidSphere( 5, 16, 16 );
+
+glColor3f( 0, 0, 1 );
+glutSolidSphere( 5, 16, 16 );
+
 }
 
 void drawMoon(){
-    glColor3f( 0.5, 0.5, 0.5 );
-    glutSolidSphere( 1, 16, 16 );
-}
 
+glColor3f( 0.5, 0.5, 0.5 );
+glutSolidSphere( 1, 16, 16 );
+
+}
 void drawMars(){
-    glColor3f( 1, 0.2, 0 );
-    glutSolidSphere( 4, 16, 16 );
+
+glColor3f( 1, 0.2, 0 );
+glutSolidSphere( 4, 16, 16 );
+
 }
 
-void TimerFunction( int value ) {
-    angleEarth += 3;
-    if( angleEarth >= 360 ) angleEarth = 0;
+void display(void)
+{
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-    angleMoon += 6;
-    if( angleMoon >= 360 ) angleMoon = 0;
+	glLoadIdentity();
 
-    angleMars += 2;
-    if( angleMars >= 360 ) angleMars = 0;
+	gluLookAt(eyex,eyey,eyez,0,0,0,0,1,0);
 
-    glutPostRedisplay();
-    glutTimerFunc( 33, TimerFunction, 1);
+	glPushMatrix();
+		drawSun();
+		glPushMatrix();
+			glRotatef( angleEarth, 0, 1, 0 );
+			glTranslatef( 30, 0, 0 );
+			drawEarth();
+			glPushMatrix();
+				glRotatef( angleMoon, 0, 1, 0 );
+				glTranslatef( 7, 0, 0 );
+				drawMoon();
+			glPopMatrix();
+		glPopMatrix();
+		glPushMatrix();
+			glRotatef( angleMars, 0, 1, 0 );
+			glTranslatef( 50, 0, 0 );
+			drawMars();
+		glPopMatrix();
+	glPopMatrix();
+
+	glutSwapBuffers();
+}
+void
+TimerFunction( int value ){
+
+	angleEarth += 3;
+	if( angleEarth >= 360 ) angleEarth = 0;
+
+	angleMoon += 6;
+	if( angleMoon >= 360 ) angleMoon = 0;
+
+	angleMars += 2;
+	if( angleMars >= 360 ) angleMars = 0;
+
+	glutPostRedisplay();
+	glutTimerFunc( 33, TimerFunction, 1);
 }
 
-void teclado(unsigned char key, int x, int y) {
-	if (key == 27) {
-       glutDestroyWindow(id);
-	   exit(0);
-    }
+void reshape(int width,int height)
+{
+glViewport(0,0,width,height); // Reset The Current Viewport
+
+glMatrixMode(GL_PROJECTION); // Select The Projection Matrix
+glLoadIdentity(); // Reset The Projection Matrix
+
+// Calculate The Aspect Ratio Of The Window
+gluPerspective(45.0f,(float)640/(float)480,0.1f,1000.0f);
+// Always keeps the same aspect as a 640 wide and 480 high window
+
+glMatrixMode(GL_MODELVIEW); // Select The Modelview Matrix
+glLoadIdentity(); // Reset The Modelview Matrix
 }
 
-void display(void) {
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-
-    glLoadIdentity();
-
-    //gluLookAt(eyex,eyey,eyez,0,0,0,0,1,0);
-
-    // Draw planetary system
-    glPushMatrix();
-      drawSun();
-      glPushMatrix();
-        glRotatef( angleEarth, 0, 1, 0 );
-        glTranslatef( 30, 0, 0 );
-        drawEarth();
-        glPushMatrix();
-          glRotatef( angleMoon, 0, 1, 0 );
-          glTranslatef( 7, 0, 0 );
-          drawMoon();
-        glPopMatrix();
-      glPopMatrix();
-      glPushMatrix();
-        glRotatef( angleMars, 0, 1, 0 );
-        glTranslatef( 50, 0, 0 );
-        drawMars();
-      glPopMatrix();
-    glPopMatrix();
-
-    glutSwapBuffers();
-}
-
-int main(int argc,char ** argv) {
-	//Inicia a Telinha
-	glutInit(&argc,argv);
-
-	// Define do modo de operação da GLUT
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-
-	// Especifica o tamanho inicial em pixels da janela GLUT
-	glutInitWindowSize(500,500);
-
-    // Especifica a posicao inicial da Janela
-	glutInitWindowPosition(100,100);
-
-	// Cria a janela passando como argumento o título da mesma
-	id = glutCreateWindow("Bom dia alunos!!!");
-
-	// Registra a função de redesenho da janela de visualização
+int main(int argc, char** argv)
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
+	glutInitWindowSize (500, 500);
+	glutInitWindowPosition (100, 100);
+	glutCreateWindow (argv[0]);
 	glutDisplayFunc(display);
-
-	// Registra a função para tratamento das teclas ASCII
-	glutKeyboardFunc (teclado);
-
-	// Inicia o processamento e aguarda interações do usuário
+	glutReshapeFunc(reshape);
+	glutTimerFunc( 33, TimerFunction, 1);
 	glutMainLoop();
-
 	return 0;
 }
