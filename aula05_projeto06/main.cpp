@@ -1,181 +1,92 @@
-//Atividade 3 - Prática 2 - Exercicio 2
-
-#include <stdlib.h>
-#include <math.h>
+#include <iostream>
 #include <GL/freeglut.h>
 
-int id;
+// Função para desenhar o torso
+void desenhaTorso() {
+  // Define a cor do torso como vermelho
+  glColor3f(1.0, 0.0, 0.0);
 
-/* angulos para as articulacoes */
-float shoulderAngle = 0;
-float elbowAngle = 0;
-float handAngle = 0;
-float finger1Angle = 0;
-float finger2Angle = 0;
-float finger3Angle = 0;
-
-int flag = 0; // flag para selecionar o elemento a ser animado
-int stop = 1; // flag para parar a animacao
-
-/* para a camera, vale o mesmo do exercício anterior */
-#define y_min 60
-#define ro_min 120
-float eyex = 0;
-float eyey = y_min;
-float eyez = ro_min;
-
-float PI = 3.14;
-
-void drawPlane(){
-   glTranslatef(-0.5,0,-0.5);
-   glColor3f(0,0.5,1);
-   glBegin(GL_POLYGON);
-   glNormal3f( 0, 1, 0 );
-   glVertex3f(1,0,1);
-   glVertex3f(1,0,0);
-   glVertex3f(0,0,0);
-   glVertex3f(0,0,1);
-
-   glEnd();
-
+  // Desenha um quadrado para representar o torso
+  glBegin(GL_QUADS);
+    glVertex2f(-0.2, -0.5);
+    glVertex2f(0.2, -0.5);
+    glVertex2f(0.2, -0.2);
+    glVertex2f(-0.2, -0.2);
+  glEnd();
 }
 
-void display(void) {
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+// Função para desenhar o braço
+void desenhaBraco(float angulo) {
+  // Define a cor do braço como azul
+  glColor3f(0.0, 0.0, 1.0);
 
-    glLoadIdentity();
-
-    gluLookAt(eyex,eyey,eyez,0,0,0,0,1,0);
-
-    glPushMatrix();
-    glScalef( 100, 100, 100 );
-    glTranslatef( -0.5, 0, -0.5 );
-    drawPlane();
-    glPopMatrix();
-
-    // Draw Robot Arm
-    glPushMatrix();
-    glColor3f( 0.1, 1, 0.1 );
-    glRotatef( shoulderAngle, 0, 0, 1 );
-    glTranslatef( 0, 4, 0 );
-    glPushMatrix();
-    glScalef( 1, 8, 1 );
-    glutSolidCube(1);
-    glPopMatrix();
-
-    glTranslatef( 0, 4, 0 );
-
-    glColor3f( 0.1, 0.1, 1 );
-    glRotatef( elbowAngle, 0, 0, 1 );
-    glTranslatef( 0, 3.5, 0 );
-    glPushMatrix();
-    glScalef( 0.8, 7, 0.8 );
-    glutSolidCube(1);
-    glPopMatrix();
-
-    glTranslatef( 0, 3.5, 0 );
-
-    glColor3f( 1, 0.1, 0.1 );
-    glRotatef( handAngle, 1, 0, 0 );
-    glTranslatef( 0, 0.75, 0 );
-    glPushMatrix();
-    glScalef( 1.0, 1.5, 0.6 );
-    glutSolidCube(1);
-    glPopMatrix();
-
-    glTranslatef( 0, 0.75, 0 );
-
-    glPushMatrix();
-    glRotatef( finger1Angle, 1, 0, 0 );
-    glTranslatef( -0.5, 0.75, 0 );
-    glScalef( 0.2, 1.5, 0.2 );
-    glutSolidCube(1);
-    glPopMatrix();
-
-    glPushMatrix();
-    glRotatef( finger2Angle, 1, 0, 0 );
-    glTranslatef( 0, 0.75, 0 );
-    glScalef( 0.2, 1.5, 0.2 );
-    glutSolidCube(1);
-    glPopMatrix();
-
-    glPushMatrix();
-    glRotatef( finger3Angle, 1, 0, 0 );
-    glTranslatef( 0.5, 0.75, 0 );
-    glScalef( 0.2, 1.5, 0.2 );
-    glutSolidCube(1);
-    glPopMatrix();
-
-    glPopMatrix();
-
-    glutSwapBuffers();
+  // Desenha um triângulo para representar o braço
+  glPushMatrix();
+    glTranslatef(0.0, -0.3, 0.0);
+    glRotatef(angulo, 0.0, 0.0, 1.0);
+    glBegin(GL_TRIANGLES);
+      glVertex2f(0.0, 0.0);
+      glVertex2f(0.2, 0.0);
+      glVertex2f(0.1, 0.2);
+    glEnd();
+  glPopMatrix();
 }
 
-void increment(int delta) {
-    switch(flag){
-        case 1: shoulderAngle+=delta; break;
-        case 2: elbowAngle+=delta; break;
-        case 3: handAngle+=delta; break;
-        case 4: finger1Angle+=delta; break;
-        case 5: finger2Angle+=delta; break;
-        case 6: finger3Angle+=delta; break;
-    }
+// Função de exibição principal
+void display() {
+  // Limpa a tela com preto
+  glClearColor(0.0, 0.0, 0.0, 1.0);
+  glClear(GL_COLOR_BUFFER_BIT);
 
-    glutPostRedisplay();
+  // Desenha o torso
+  desenhaTorso();
+
+  // Desenha o braço com diferentes ângulos para simular o aceno
+  for (float angulo = 0; angulo <= 60; angulo += 5) {
+    desenhaBraco(angulo);
+  }
+
+  // Troca os buffers e exibe a imagem
+  glutSwapBuffers();
 }
 
-void key(unsigned char k, int x, int y) {
-    switch(k) {
-        case '1': flag = 1; break;
-        case '2': flag = 2; break;
-        case '3': flag = 3; break;
-        case '4': flag = 4; break;
-        case '5': flag = 5; break;
-        case '6': flag = 6; break;
-        case ' ': stop = 1-stop; break;
-    }
+// Função para lidar com a redefinição da janela
+void reshape(int w, int h) {
+  // Define a área de visualização
+  glViewport(0, 0, w, h);
+
+  // Define a matriz de projeção como ortogonal
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluOrtho2D(-1.0, 1.0, -1.0, 1.0);
+
+  // Volta para a matriz de modelo
+  glMatrixMode(GL_MODELVIEW);
 }
 
-void specialkey(int k, int x, int y) {
-    switch(k) {
-        case GLUT_KEY_RIGHT: increment(5); break;
-        case GLUT_KEY_LEFT: increment(-5); break;
-    }
+// Função principal
+int main(int argc, char** argv) {
+  // Inicializa a biblioteca FreeGLUT
+  glutInit(&argc, argv);
 
-    glutKeyboardFunc(key);
-    glutSpecialFunc(specialkey);
+  // Define o modo de exibição
+  glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+
+  // Define o tamanho da janela
+  glutInitWindowSize(400, 300);
+
+  // Define a posição da janela
+  glutInitWindowPosition(100, 100);
+
+  // Cria a janela
+  glutCreateWindow("Pessoa Acenando com o Braço");
+
+  // Define as funções de callback para exibição e redefinição da janela
+  glutDisplayFunc(display);
+  glutReshapeFunc(reshape);
+
+  // Entra no loop principal da GLUT
+  glutMainLoop();
+
+  return 0;
 }
-
-void TimerCamera(int value) {
-    float ro;
-
-    if(stop) {
-        value++;
-
-        if( value == 720 ) value = 0;
-
-        ro = ro_min - sin(value/2.0*PI/360)*ro_min*0.8;
-        eyey = y_min - sin(value/2.0*PI/360)*y_min*0.8;
-        eyex = ro * sin(value/2.0*PI/180);
-        eyez = ro * cos(value/2.0*PI/180);
-
-        glutPostRedisplay();
-    }
-
-    glutTimerFunc( 33, TimerCamera, value);
-}
-
-int main(int argc,char ** argv) {
-    glutInit(&argc,argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-    glutInitWindowSize(500,500);
-    glutInitWindowPosition(100,100);
-    id = glutCreateWindow("...");
-    glutDisplayFunc(display);
-    glutKeyboardFunc(key);
-    glutSpecialFunc(specialkey);
-    glutMainLoop();
-
-    return 0;
-}
-
