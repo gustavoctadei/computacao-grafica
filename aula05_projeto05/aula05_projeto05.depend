@@ -1,7 +1,7 @@
 # depslib dependency file v1.0
-1715291109 source:c:\users\gusta\projects\computacao-grafica\aula05_projeto05\main.cpp
-	<stdlib.h>
+1718753298 source:c:\users\gusta\projects\computacao-grafica\aula05_projeto05\main.cpp
 	<GL/freeglut.h>
+	<stdlib.h>
 
 1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\stdlib.h
 	<crtdefs.h>
