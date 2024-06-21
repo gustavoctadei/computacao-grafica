@@ -1,6 +1,8 @@
 # depslib dependency file v1.0
-1718245346 source:c:\users\gusta\projects\computacao-grafica\aula05_projeto06\main.cpp
-	<iostream>
+1718925456 source:c:\users\gusta\projects\computacao-grafica\aula05_projeto06\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
 	<GL/freeglut.h>
 
 1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\stdio.h
@@ -896,4 +898,7 @@
 
 1426361640 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\gl\freeglut_ext.h
 	<stdarg.h>
+
+1526093416 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\math.h
+	<crtdefs.h>
 

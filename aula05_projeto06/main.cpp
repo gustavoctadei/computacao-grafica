@@ -1,92 +1,125 @@
-#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 #include <GL/freeglut.h>
 
-// Função para desenhar o torso
-void desenhaTorso() {
-  // Define a cor do torso como vermelho
-  glColor3f(1.0, 0.0, 0.0);
+#define _USE_MATH_DEFINES
 
-  // Desenha um quadrado para representar o torso
-  glBegin(GL_QUADS);
-    glVertex2f(-0.2, -0.5);
-    glVertex2f(0.2, -0.5);
-    glVertex2f(0.2, -0.2);
-    glVertex2f(-0.2, -0.2);
-  glEnd();
-}
+//Variáveis Globais
+float angulo = 0;
+float angulo_braco = 0;
+float angulo_mao = 0;
+float angulo_dedo = 0;
 
-// Função para desenhar o braço
-void desenhaBraco(float angulo) {
-  // Define a cor do braço como azul
-  glColor3f(0.0, 0.0, 1.0);
-
-  // Desenha um triângulo para representar o braço
-  glPushMatrix();
-    glTranslatef(0.0, -0.3, 0.0);
-    glRotatef(angulo, 0.0, 0.0, 1.0);
-    glBegin(GL_TRIANGLES);
-      glVertex2f(0.0, 0.0);
-      glVertex2f(0.2, 0.0);
-      glVertex2f(0.1, 0.2);
-    glEnd();
-  glPopMatrix();
-}
-
-// Função de exibição principal
 void display() {
-  // Limpa a tela com preto
-  glClearColor(0.0, 0.0, 0.0, 1.0);
-  glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
+    gluLookAt(0, 10, 30, 0, 0, 0, 0, 1, 0);
 
-  // Desenha o torso
-  desenhaTorso();
+    glPushMatrix();
+        //Braço
+        glPushMatrix();
+            glColor3f(0.1, 1, 0.1);
+            glTranslatef(0, -4, 0);
+            glScalef(1, 8, 1);
+            glutSolidCube(1);
+        glPopMatrix();
 
-  // Desenha o braço com diferentes ângulos para simular o aceno
-  for (float angulo = 0; angulo <= 60; angulo += 5) {
-    desenhaBraco(angulo);
-  }
+        glPushMatrix();
+            glColor3f(0.1, 0.1, 1);
+            glRotatef(angulo_braco, 0, 0, 1);
+            glTranslatef(0, 4, 0);
+            glScalef(0.8, 7, 0.8);
+            glutSolidCube(1);
+        glPopMatrix();
 
-  // Troca os buffers e exibe a imagem
-  glutSwapBuffers();
+        //Mão
+        glPushMatrix();
+            glColor3f(1, 0.1, 0.1);
+            glRotatef(angulo_mao, 0, 0, 1);
+            glTranslatef(0, 8.5, 0);
+            glScalef(2, 1.5, 0.6);
+            glutSolidCube(1);
+        glPopMatrix();
+
+        //Dedos
+        glPushMatrix();
+            glColor3f(1, 1, 0.1);
+            glRotatef(angulo_dedo, 0, 0, 1);
+            glTranslatef(-1, 10.25, 0);
+            glScalef(0.2, 1.5, 0.2);
+            glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+            glColor3f(1, 1, 0.1);
+            glRotatef(angulo_dedo, 0, 0, 1);
+            glTranslatef(-0.5, 10.25, 0);
+            glScalef(0.2, 1.5, 0.2);
+            glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+            glColor3f(1, 1, 0.1);
+            glRotatef(angulo_dedo, 0, 0, 1);
+            glTranslatef(0, 10.25, 0);
+            glScalef(0.2, 1.5, 0.2);
+            glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+            glColor3f(1, 1, 0.1);
+            glRotatef(angulo_dedo, 0, 0, 1);
+            glTranslatef(0.5, 10.25, 0);
+            glScalef(0.2, 1.5, 0.2);
+            glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+            glColor3f(1, 1, 0.1);
+            glRotatef(angulo_dedo, 0, 0, 1);
+            glTranslatef(1, 10.25, 0);
+            glScalef(0.2, 1.5, 0.2);
+            glutSolidCube(1);
+        glPopMatrix();
+
+    glPopMatrix();
+
+    glutSwapBuffers();
 }
 
-// Função para lidar com a redefinição da janela
-void reshape(int w, int h) {
-  // Define a área de visualização
-  glViewport(0, 0, w, h);
+void movimento_tchau(int value) {
+    angulo_braco = -15 * sin(angulo * M_PI / 180.0);
+    angulo_mao = -20 * sin(angulo * M_PI / 180.0);
+    angulo_dedo = -20 * sin(angulo * M_PI / 180.0);
 
-  // Define a matriz de projeção como ortogonal
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  gluOrtho2D(-1.0, 1.0, -1.0, 1.0);
+    angulo += 2.5;
 
-  // Volta para a matriz de modelo
-  glMatrixMode(GL_MODELVIEW);
+    glutPostRedisplay();
+    glutTimerFunc(20, movimento_tchau, 0);
 }
 
-// Função principal
-int main(int argc, char** argv) {
-  // Inicializa a biblioteca FreeGLUT
-  glutInit(&argc, argv);
-
-  // Define o modo de exibição
-  glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-
-  // Define o tamanho da janela
-  glutInitWindowSize(400, 300);
-
-  // Define a posição da janela
-  glutInitWindowPosition(100, 100);
-
-  // Cria a janela
-  glutCreateWindow("Pessoa Acenando com o Braço");
-
-  // Define as funções de callback para exibição e redefinição da janela
-  glutDisplayFunc(display);
-  glutReshapeFunc(reshape);
-
-  // Entra no loop principal da GLUT
-  glutMainLoop();
-
-  return 0;
+void init() {
+    glEnable(GL_DEPTH_TEST);
+    glClearColor(0, 0, 0, 0);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(60.0, 1.33, 1.0, 100.0);
+    glMatrixMode(GL_MODELVIEW);
 }
+
+int main(int argc, char **argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(800, 600);
+    glutCreateWindow("Tchau");
+
+    init();
+
+    glutDisplayFunc(display);
+    glutTimerFunc(45, movimento_tchau, 0);
+
+    glutMainLoop();
+    return 0;
+}
+
