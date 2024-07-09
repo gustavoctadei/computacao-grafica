@@ -32,42 +32,45 @@ void drawMani() {
     // Cabeça da Mani
     glMaterialfv(GL_FRONT, GL_DIFFUSE, cor_mani);
     glPushMatrix();
-        glTranslatef(0.0, 1.5, 0.0);
+        glTranslatef(-2.5, 0.0, 0.0);
         glutSolidSphere(0.5, 30, 30);
     glPopMatrix();
 
     // Corpo da Mani
     glPushMatrix();
-        glTranslatef(0.0, 0.75, 0.0);
-        glScalef(0.6, 1.5, 0.4);
+        glTranslatef(-1.0, 0.0, 0.0);
+        glScalef(1.5, 0.6, 0.4);
         glutSolidCube(1);
     glPopMatrix();
 
     // Braços da Mani
     glPushMatrix();
-        glTranslatef(0.5, 0.75, 0.0);
-        glRotatef(-30, 0.0, 0.0, 1.0);
+        glTranslatef(-1.0, 0.25, 1.0);
+        //glRotatef(-30, 0.0, 0.0, 1.0);
+        glRotatef(70.0, 0.0, 0.0, 1.0);
         glScalef(0.2, 0.8, 0.2);
         glutSolidCube(1);
     glPopMatrix();
 
     glPushMatrix();
-        glTranslatef(-0.5, 0.75, 0.0);
-        glRotatef(30, 0.0, 0.0, 1.0);
+        glTranslatef(-1.0, 0.25, -0.5);
+        //glRotatef(-30, 0.0, 0.0, 1.0);
+        glRotatef(-70.0, 0.0, 0.0, 1.0);
         glScalef(0.2, 0.8, 0.2);
         glutSolidCube(1);
     glPopMatrix();
 
     // Pernas da Mani
     glPushMatrix();
-        glTranslatef(0.2, -0.75, 0.0);
-        glScalef(0.2, 0.8, 0.2);
+        glTranslatef(0.2, 0.5, -0.0005);
+        glScalef(0.8, 0.2, 0.2);
         glutSolidCube(1);
     glPopMatrix();
 
+    //glPushMatrix();
     glPushMatrix();
-        glTranslatef(-0.2, -0.75, 0.0);
-        glScalef(0.2, 0.8, 0.2);
+        glTranslatef(0.2, 0.5, 0.5);
+        glScalef(0.8, 0.2, 0.2);
         glutSolidCube(1);
     glPopMatrix();
 }
@@ -123,7 +126,11 @@ void display(void) {
     glShadeModel(GL_FLAT);
 
     glPushMatrix();
-        gluLookAt(0.0, 10.0, 20.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+        //Visão padrão
+        //gluLookAt(0.0, 10.0, 20.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+        //Visão mais alta
+        gluLookAt(0.0, 20.0, 15.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
         // Plano
         glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, plano_difusa);
