@@ -46,7 +46,6 @@ void drawMani() {
     // Braços da Mani
     glPushMatrix();
         glTranslatef(-1.0, 0.25, 1.0);
-        //glRotatef(-30, 0.0, 0.0, 1.0);
         glRotatef(70.0, 0.0, 0.0, 1.0);
         glScalef(0.2, 0.8, 0.2);
         glutSolidCube(1);
@@ -54,7 +53,6 @@ void drawMani() {
 
     glPushMatrix();
         glTranslatef(-1.0, 0.25, -0.5);
-        //glRotatef(-30, 0.0, 0.0, 1.0);
         glRotatef(-70.0, 0.0, 0.0, 1.0);
         glScalef(0.2, 0.8, 0.2);
         glutSolidCube(1);
@@ -67,7 +65,6 @@ void drawMani() {
         glutSolidCube(1);
     glPopMatrix();
 
-    //glPushMatrix();
     glPushMatrix();
         glTranslatef(0.2, 0.5, 0.5);
         glScalef(0.8, 0.2, 0.2);
@@ -119,6 +116,36 @@ void drawMae() {
     glPopMatrix();
 }
 
+void drawOca() {
+    // Base da Oca
+    glPushMatrix();
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, plano_difusa);
+        glTranslatef(0.0, 0.0, -5.0); // Posição da oca atrás de Mani
+        glScalef(3.0, 0.5, 3.0);
+        glutSolidCube(1);
+    glPopMatrix();
+
+    // Estrutura da Oca
+    for (float i = -1.0; i <= 1.0; i += 0.5) {
+        for (float j = -1.0; j <= 1.0; j += 0.5) {
+            glPushMatrix();
+                glMaterialfv(GL_FRONT, GL_DIFFUSE, cor_mae);
+                glTranslatef(i, 0.5, -5.0 + j);
+                glScalef(0.1, 2.0, 0.1);
+                glutSolidCube(1);
+            glPopMatrix();
+        }
+    }
+
+    // Teto da Oca
+    glPushMatrix();
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, cor_mani);
+        glTranslatef(0.0, 2.5, -5.0);
+        glRotatef(-90, 1.0, 0.0, 0.0);
+        glutSolidCone(3.0, 2.0, 30, 30);
+    glPopMatrix();
+}
+
 void display(void) {
     glEnable(GL_DEPTH_TEST);
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -127,10 +154,10 @@ void display(void) {
 
     glPushMatrix();
         //Visão padrão
-        //gluLookAt(0.0, 10.0, 20.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+        gluLookAt(0.0, 10.0, 20.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
         //Visão mais alta
-        gluLookAt(0.0, 20.0, 15.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+        //gluLookAt(0.0, 20.0, 15.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
         // Plano
         glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, plano_difusa);
@@ -153,6 +180,9 @@ void display(void) {
             glTranslatef(pos_mae_x, pos_mae_y, 0.0);
             drawMae();
         glPopMatrix();
+
+        // Oca ao fundo de Mani
+        drawOca();
 
     glPopMatrix();
     glutSwapBuffers();
@@ -185,6 +215,15 @@ void keyboard(unsigned char key, int x, int y) {
     }
 }
 
+void animacao(int value) {
+    if (pos_mani_y > -0.6f){
+        pos_mani_y = pos_mani_y - 0.005;
+    }
+
+    glutPostRedisplay();
+    glutTimerFunc(10, animacao, 0);
+}
+
 void init() {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -205,7 +244,8 @@ int main(int argc, char **argv) {
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
-    glutSpecialFunc(specialKeys);  // Adiciona a função para teclas especiais
+    //glutSpecialFunc(specialKeys);  // Adiciona a função para teclas especiais
+    glutTimerFunc(10, animacao, 0);
 
     glutMainLoop();
     return 0;
