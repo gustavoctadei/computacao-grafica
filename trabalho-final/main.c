@@ -13,14 +13,18 @@ GLfloat plano_difusa[] = {0.5, 0.5, 0.0, 1.0};
 // Cores das figuras
 GLfloat cor_mani[] = {1.0, 0.8, 0.6, 1.0};
 GLfloat cor_mae[] = {0.8, 0.5, 0.3, 1.0};
+GLfloat cor_lagrima[] = {0.0, 0.0, 0.6, 1.0};
+GLfloat cor_mandioca[] = {0.0, 0.6, 0.1, 1.0};
 
 // Variáveis de posição
 GLfloat pos_mani_x = 0.0f, pos_mani_y = 0.5f;
 GLfloat pos_mae_x = 2.0f, pos_mae_y = 0.5f;
+GLfloat pos_lagrima_y = 3.25f;
 
 //Variáveis de escala
 GLfloat escala_mandioca_x = 0.0f, escala_mandioca_y = 0.0f, escala_mandioca_z = 0.0f;
 GLfloat escala_folha_mandioca_x = 0.0f, escala_folha_mandioca_y = 0.0f, escala_folha_mandioca_z = 0.0f;
+GLfloat raio_lagrima = 0.0f;
 
 int contador_animacao = 0;
 
@@ -120,6 +124,25 @@ void drawMae() {
         glScalef(0.2, 1.0, 0.2);
         glutSolidCube(1);
     glPopMatrix();
+
+    //Lagrimas
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, cor_lagrima);
+    glPushMatrix();
+        glTranslatef(0.0, pos_lagrima_y, 1.0);
+        glutSolidSphere(raio_lagrima, 30, 30);
+    glPopMatrix();
+
+    glPushMatrix();
+        glTranslatef(-0.2, pos_lagrima_y-0.15, 1.0);
+        glutSolidSphere(raio_lagrima, 30, 30);
+    glPopMatrix();
+
+    glPushMatrix();
+        glTranslatef(0.2, pos_lagrima_y-0.15, 1.0);
+        glutSolidSphere(raio_lagrima, 30, 30);
+    glPopMatrix();
+
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, cor_mae);
 }
 
 void drawOca() {
@@ -153,6 +176,7 @@ void drawOca() {
 }
 
 void drawMandioca() {
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, cor_mandioca);
     //Mandioca
     glPushMatrix();
         glScalef(escala_mandioca_x, escala_mandioca_y, escala_mandioca_z);
@@ -290,10 +314,15 @@ void animacao(int value) {
     }
 
     //Lágrimas da mãe da Mani caindo
-    //ToDo
+    if (contador_animacao > 280) {
+        raio_lagrima = 0.1;
+        if (pos_lagrima_y > -0.8) {
+            pos_lagrima_y -= 0.05;
+        }
+    }
 
     //Mandioca nascendo
-    if (contador_animacao > 280) {
+    if (contador_animacao > 380) {
 
         if (escala_mandioca_x <= 0.3) {
             escala_mandioca_x = escala_mandioca_x + 0.005;
