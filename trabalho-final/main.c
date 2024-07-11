@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <GL/glut.h>
+#include <Windows.h>
+#include <MMSystem.h>
 
 GLint WIDTH = 1024;
 GLint HEIGHT = 768;
@@ -377,6 +379,8 @@ int main(int argc, char **argv) {
     glutKeyboardFunc(keyboard);
     //glutSpecialFunc(specialKeys);  // Adiciona a função para teclas especiais
     glutTimerFunc(30, animacao, 0);
+
+    PlaySound("C:\\Users\\gusta\\Projects\\computacao-grafica\\trabalho-final\\flauta_indigena.wav", NULL, SND_ASYNC|SND_FILENAME|SND_LOOP);
 
     glutMainLoop();
     return 0;
