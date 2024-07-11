@@ -18,6 +18,10 @@ GLfloat cor_mae[] = {0.8, 0.5, 0.3, 1.0};
 GLfloat pos_mani_x = 0.0f, pos_mani_y = 0.5f;
 GLfloat pos_mae_x = 2.0f, pos_mae_y = 0.5f;
 
+//Variáveis de escala
+GLfloat escala_mandioca_x = 0.0f, escala_mandioca_y = 0.0f, escala_mandioca_z = 0.0f;
+GLfloat escala_folha_mandioca_x = 0.0f, escala_folha_mandioca_y = 0.0f, escala_folha_mandioca_z = 0.0f;
+
 void reshape(int width, int height) {
     WIDTH = width;
     HEIGHT = height;
@@ -146,6 +150,59 @@ void drawOca() {
     glPopMatrix();
 }
 
+void drawMandioca() {
+    //Mandioca
+    glPushMatrix();
+        glScalef(0.3, 2.0, 0.2);
+        glutSolidCube(1);
+
+        //Folhas da direita
+        glPushMatrix();
+            glTranslatef(1, 0.7, 4);
+            glRotatef(15, 0.0, 0.0, 1.0);
+            glScalef(1.5, 0.1, 0.1);
+            glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+            glTranslatef(1, 0.4, 4);
+            glRotatef(15, 0.0, 0.0, 1.0);
+            glScalef(1.5, 0.1, 0.1);
+            glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+            glTranslatef(1, 0.1, 4);
+            glRotatef(15, 0.0, 0.0, 1.0);
+            glScalef(1.5, 0.1, 0.1);
+            glutSolidCube(1);
+        glPopMatrix();
+
+        //Folhas da esquerda
+        glPushMatrix();
+            glTranslatef(-2, 0.1, 4);
+            glRotatef(-15, 0.0, 0.0, 1.0);
+            glScalef(1.5, 0.1, 0.1);
+            glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+            glTranslatef(-2, 0.4, 4);
+            glRotatef(-15, 0.0, 0.0, 1.0);
+            glScalef(1.5, 0.1, 0.1);
+            glutSolidCube(1);
+        glPopMatrix();
+
+        glPushMatrix();
+            glTranslatef(-2, 0.7, 4);
+            glRotatef(-15, 0.0, 0.0, 1.0);
+            glScalef(1.5, 0.1, 0.1);
+            glutSolidCube(1);
+        glPopMatrix();
+    glPopMatrix();
+}
+
+
 void display(void) {
     glEnable(GL_DEPTH_TEST);
     glClearColor(1.0, 1.0, 1.0, 1.0);
@@ -179,6 +236,12 @@ void display(void) {
         glPushMatrix();
             glTranslatef(pos_mae_x, pos_mae_y, 0.0);
             drawMae();
+        glPopMatrix();
+
+        // Mandioca
+        glPushMatrix();
+            glTranslatef(pos_mani_x, 1.0, 0.0);
+            drawMandioca();
         glPopMatrix();
 
         // Oca ao fundo de Mani
@@ -220,6 +283,18 @@ void animacao(int value) {
         pos_mani_y = pos_mani_y - 0.005;
     }
 
+    if (escala_mandioca_x <= 0.3) {
+        escala_mandioca_x = escala_mandioca_x + 0.005;
+    }
+
+    if (escala_mandioca_y <= 2.0) {
+        escala_mandioca_y = escala_mandioca_y + 0.005;
+    }
+
+    if (escala_mandioca_z <= 0.2) {
+        escala_mandioca_z = escala_mandioca_z + 0.005;
+    }
+
     glutPostRedisplay();
     glutTimerFunc(10, animacao, 0);
 }
@@ -245,7 +320,7 @@ int main(int argc, char **argv) {
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
     //glutSpecialFunc(specialKeys);  // Adiciona a função para teclas especiais
-    glutTimerFunc(10, animacao, 0);
+    //glutTimerFunc(10, animacao, 0);
 
     glutMainLoop();
     return 0;
