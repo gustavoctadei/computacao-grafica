@@ -1,8 +1,10 @@
 # depslib dependency file v1.0
-1720670226 source:c:\users\gusta\projects\computacao-grafica\trabalho-final\main.c
+1720730798 source:c:\users\gusta\projects\computacao-grafica\trabalho-final\main.c
 	<stdio.h>
 	<stdlib.h>
 	<GL/glut.h>
+	<Windows.h>
+	<MMSystem.h>
 
 1526093414 c:\program files\codeblocks\mingw\x86_64-w64-mingw32\include\stdio.h
 	<crtdefs.h>
