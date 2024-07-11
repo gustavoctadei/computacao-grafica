@@ -22,6 +22,8 @@ GLfloat pos_mae_x = 2.0f, pos_mae_y = 0.5f;
 GLfloat escala_mandioca_x = 0.0f, escala_mandioca_y = 0.0f, escala_mandioca_z = 0.0f;
 GLfloat escala_folha_mandioca_x = 0.0f, escala_folha_mandioca_y = 0.0f, escala_folha_mandioca_z = 0.0f;
 
+int contador_animacao = 0;
+
 void reshape(int width, int height) {
     WIDTH = width;
     HEIGHT = height;
@@ -279,36 +281,49 @@ void keyboard(unsigned char key, int x, int y) {
 }
 
 void animacao(int value) {
-    if (pos_mani_y > -0.6f){
-        pos_mani_y = pos_mani_y - 0.005;
+
+    //Mani sendo enterrada
+    if (contador_animacao > 50) {
+        if (pos_mani_y > -0.6f){
+            pos_mani_y = pos_mani_y - 0.005;
+        }
     }
 
-    if (escala_mandioca_x <= 0.3) {
-        escala_mandioca_x = escala_mandioca_x + 0.005;
+    //Lágrimas da mãe da Mani caindo
+    //ToDo
+
+    //Mandioca nascendo
+    if (contador_animacao > 280) {
+
+        if (escala_mandioca_x <= 0.3) {
+            escala_mandioca_x = escala_mandioca_x + 0.005;
+        }
+
+        if (escala_mandioca_y <= 2.0) {
+            escala_mandioca_y = escala_mandioca_y + 0.005;
+        }
+
+        if (escala_mandioca_z <= 0.2) {
+            escala_mandioca_z = escala_mandioca_z + 0.005;
+        }
+
+        if (escala_folha_mandioca_x <= 1.5) {
+            escala_folha_mandioca_x += 0.005;
+        }
+
+        if (escala_folha_mandioca_y <= 0.1) {
+            escala_folha_mandioca_y += 0.005;
+        }
+
+        if (escala_folha_mandioca_z <= 0.1) {
+            escala_folha_mandioca_z + 0.005;
+        }
+
     }
 
-    if (escala_mandioca_y <= 2.0) {
-        escala_mandioca_y = escala_mandioca_y + 0.005;
-    }
-
-    if (escala_mandioca_z <= 0.2) {
-        escala_mandioca_z = escala_mandioca_z + 0.005;
-    }
-
-    if (escala_folha_mandioca_x <= 1.5) {
-        escala_folha_mandioca_x += 0.005;
-    }
-
-    if (escala_folha_mandioca_y <= 0.1) {
-        escala_folha_mandioca_y += 0.005;
-    }
-
-    if (escala_folha_mandioca_z <= 0.1) {
-        escala_folha_mandioca_z + 0.005;
-    }
-
+    contador_animacao += 1;
     glutPostRedisplay();
-    glutTimerFunc(10, animacao, 0);
+    glutTimerFunc(30, animacao, 0);
 }
 
 void init() {
@@ -332,7 +347,7 @@ int main(int argc, char **argv) {
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
     //glutSpecialFunc(specialKeys);  // Adiciona a função para teclas especiais
-    glutTimerFunc(10, animacao, 0);
+    glutTimerFunc(30, animacao, 0);
 
     glutMainLoop();
     return 0;
