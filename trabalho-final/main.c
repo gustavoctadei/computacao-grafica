@@ -153,50 +153,50 @@ void drawOca() {
 void drawMandioca() {
     //Mandioca
     glPushMatrix();
-        glScalef(0.3, 2.0, 0.2);
+        glScalef(escala_mandioca_x, escala_mandioca_y, escala_mandioca_z);
         glutSolidCube(1);
 
         //Folhas da direita
         glPushMatrix();
             glTranslatef(1, 0.7, 4);
             glRotatef(15, 0.0, 0.0, 1.0);
-            glScalef(1.5, 0.1, 0.1);
+            glScalef(escala_folha_mandioca_x, escala_folha_mandioca_y, escala_folha_mandioca_z);
             glutSolidCube(1);
         glPopMatrix();
 
         glPushMatrix();
             glTranslatef(1, 0.4, 4);
             glRotatef(15, 0.0, 0.0, 1.0);
-            glScalef(1.5, 0.1, 0.1);
+            glScalef(escala_folha_mandioca_x, escala_folha_mandioca_y, escala_folha_mandioca_z);
             glutSolidCube(1);
         glPopMatrix();
 
         glPushMatrix();
             glTranslatef(1, 0.1, 4);
             glRotatef(15, 0.0, 0.0, 1.0);
-            glScalef(1.5, 0.1, 0.1);
+            glScalef(escala_folha_mandioca_x, escala_folha_mandioca_y, escala_folha_mandioca_z);
             glutSolidCube(1);
         glPopMatrix();
 
         //Folhas da esquerda
         glPushMatrix();
-            glTranslatef(-2, 0.1, 4);
+            glTranslatef(-1, 0.1, 4);
             glRotatef(-15, 0.0, 0.0, 1.0);
-            glScalef(1.5, 0.1, 0.1);
+            glScalef(escala_folha_mandioca_x, escala_folha_mandioca_y, escala_folha_mandioca_z);
             glutSolidCube(1);
         glPopMatrix();
 
         glPushMatrix();
-            glTranslatef(-2, 0.4, 4);
+            glTranslatef(-1, 0.4, 4);
             glRotatef(-15, 0.0, 0.0, 1.0);
-            glScalef(1.5, 0.1, 0.1);
+            glScalef(escala_folha_mandioca_x, escala_folha_mandioca_y, escala_folha_mandioca_z);
             glutSolidCube(1);
         glPopMatrix();
 
         glPushMatrix();
-            glTranslatef(-2, 0.7, 4);
+            glTranslatef(-1, 0.7, 4);
             glRotatef(-15, 0.0, 0.0, 1.0);
-            glScalef(1.5, 0.1, 0.1);
+            glScalef(escala_folha_mandioca_x, escala_folha_mandioca_y, escala_folha_mandioca_z);
             glutSolidCube(1);
         glPopMatrix();
     glPopMatrix();
@@ -240,7 +240,7 @@ void display(void) {
 
         // Mandioca
         glPushMatrix();
-            glTranslatef(pos_mani_x, 1.0, 0.0);
+            glTranslatef(pos_mani_x, 1.0, 2.0);
             drawMandioca();
         glPopMatrix();
 
@@ -295,6 +295,18 @@ void animacao(int value) {
         escala_mandioca_z = escala_mandioca_z + 0.005;
     }
 
+    if (escala_folha_mandioca_x <= 1.5) {
+        escala_folha_mandioca_x += 0.005;
+    }
+
+    if (escala_folha_mandioca_y <= 0.1) {
+        escala_folha_mandioca_y += 0.005;
+    }
+
+    if (escala_folha_mandioca_z <= 0.1) {
+        escala_folha_mandioca_z + 0.005;
+    }
+
     glutPostRedisplay();
     glutTimerFunc(10, animacao, 0);
 }
@@ -320,7 +332,7 @@ int main(int argc, char **argv) {
     glutReshapeFunc(reshape);
     glutKeyboardFunc(keyboard);
     //glutSpecialFunc(specialKeys);  // Adiciona a função para teclas especiais
-    //glutTimerFunc(10, animacao, 0);
+    glutTimerFunc(10, animacao, 0);
 
     glutMainLoop();
     return 0;
