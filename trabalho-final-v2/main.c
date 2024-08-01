@@ -268,14 +268,14 @@ void display() {
 
 void animacao(int value) {
     //Mani sendo enterrada
-    if (contador_animacao > 50) {
+    if (contador_animacao > 5000) {
         if (pos_mani_y > -1.5f){
             pos_mani_y = pos_mani_y - 0.002;
         }
     }
 
     //Lágrimas da mãe da Mani caindo
-    if (contador_animacao > 530) {
+    if (contador_animacao > 5700) {
         raio_lagrima = 0.1;
         if (pos_lagrima_y > -0.8) {
             pos_lagrima_y -= 0.01;
@@ -283,7 +283,7 @@ void animacao(int value) {
     }
 
     //Mandioca nascendo
-    if (contador_animacao > 900) {
+    if (contador_animacao > 6600) {
 
         if (escala_mandioca_x <= 0.3) {
             escala_mandioca_x = escala_mandioca_x + 0.005;
@@ -311,7 +311,9 @@ void animacao(int value) {
 
     }
 
-    contador_animacao += 1;
+    if (contador_animacao <= 9800) {
+            contador_animacao += 1;
+    }
 
     glutPostRedisplay();
     glutTimerFunc(16, animacao, 0);
@@ -335,7 +337,7 @@ int main(int argc, char** argv) {
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutTimerFunc(25, animacao, 0);
-    PlaySound("C:\\Users\\gusta\\Projects\\computacao-grafica\\trabalho-final\\flauta_indigena.wav", NULL, SND_ASYNC|SND_FILENAME|SND_LOOP);
+    PlaySound("C:\\Users\\gusta\\Projects\\computacao-grafica\\trabalho-final-v2\\narracao.wav", NULL, SND_ASYNC|SND_FILENAME|SND_LOOP);
     glutMainLoop();
 
     return 0;
