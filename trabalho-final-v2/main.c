@@ -162,7 +162,6 @@ void drawOca() {
 }
 
 void drawMandioca() {
-    //glMaterialfv(GL_FRONT, GL_DIFFUSE, cor_mandioca);
     glColor3f(0.0, 0.8, 0.0);
     //Mandioca
     glPushMatrix();
@@ -215,7 +214,7 @@ void drawMandioca() {
     glPopMatrix();
 }
 
-void desenhaCenario() {
+void drawCenario() {
     // Desenha o chão
     glColor3f(0.1, 0.6, 0.1);
     glBegin(GL_QUADS);
@@ -262,7 +261,7 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     gluLookAt(camX, camY, camZ, camX + lookX, camY + lookY, camZ + lookZ, 0.0, 1.0, 0.0);
-    desenhaCenario(); // Desenha o cenário com árvores, cogumelos e redemoinhos
+    drawCenario();
     glutSwapBuffers();
 }
 
