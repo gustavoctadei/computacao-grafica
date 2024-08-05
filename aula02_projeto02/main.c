@@ -23,7 +23,7 @@ void display(void) {
         glVertex3f(0.9, 0.1, 0.0);
     glEnd();
 
-    //Desenhando os triângulos nas pontas das retas do eixo X e Y
+    //Desenhando os triangulos nas pontas das retas do eixo X e Y
     glBegin(GL_TRIANGLES);
         glVertex3f(0.08, 0.90, 0.0);
         glVertex3f(0.12, 0.90, 0.0);
